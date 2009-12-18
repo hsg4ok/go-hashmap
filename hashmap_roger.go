@@ -50,35 +50,18 @@ func (h *HashMap) find(key Hashable, insert bool) (fb *bucket, found bool) {
 			}
 		}
 		if insert {
-			fb := &bucket{HashPair{key, nil}, b.next}
+			fb = &bucket{HashPair{key, nil}, b.next}
 			b.next = fb
 			h.count++
-			return fb, false
 		}
 	} else {
 		if insert {
-			b = &bucket{HashPair{key, nil}, nil}
-			h.m[hash] = b
+			fb = &bucket{HashPair{key, nil}, nil}
+			h.m[hash] = fb
 			h.count++
-			return b, false
 		}
 	}
-	return nil, false
-}
-
-func (h *HashMap) At(key Hashable) (value interface{}) {
-	if b, _ := h.find(key, false); b != nil {
-		value = b.Value
-	}
 	return
-}
-
-func (h *HashMap) Insert(key Hashable, value interface{}) {
-	b, found := h.find(key, true)
-	if found {
-		panic("HashMap.Insert: duplicate key")
-	}
-	b.Value = value
 }
 
 func (h *HashMap) Remove(key Hashable) {
@@ -106,6 +89,21 @@ func (h *HashMap) Remove(key Hashable) {
 		prev.next = p.next
 	}
 	h.count--
+}
+
+func (h *HashMap) At(key Hashable) (value interface{}) {
+	if b, _ := h.find(key, false); b != nil {
+		value = b.Value
+	}
+	return
+}
+
+func (h *HashMap) Insert(key Hashable, value interface{}) {
+	b, found := h.find(key, true)
+	if found {
+		panic("HashMap.Insert: duplicate key")
+	}
+	b.Value = value
 }
 
 func (h *HashMap) Set(key Hashable, value interface{}) {
