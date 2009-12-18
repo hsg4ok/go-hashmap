@@ -137,6 +137,12 @@ func (self *HashMap) Set(key Hashable, value interface{}) {
 	e.value = value;
 }
 
+func (self *HashMap) Has(key Hashable) bool {
+//	fmt.Printf("Set %s->%s\n", key, value)
+	_, position := self.find(key)
+	return position != -1;
+}
+
 func (self *HashMap) Len() int {
 //	fmt.Printf("Len %d\n", self.count);
 	return self.count;
