@@ -1,0 +1,33 @@
+What the heck is this? Garbage collector and memory allocator... :-/
+
+  17.84%	scanblock
+  12.71%	mlookup
+
+What's interesting/promising to improve?
+
+  6.47%	runtime??stringiter2
+  5.73%	runtime??stringiter2
+
+  6.25%	hashmap??*HashMap??rehashInto
+  4.48%	hashmap??*HashMap??rehashInto
+
+  5.73%	hashmap??*hashVector??find
+  3.48%	hashmap??*hashVector??find
+
+  3.13%	hashmap??*hashVector??push
+  1.99%	hashmap??*hashVector??push
+
+  1.49%	hashmap??*HashMap??find
+
+  5.21%	main??String??Hash
+  4.48%	main??*String??Hash
+  4.17%	main??*String??Hash
+  2.99%	main??String??Hash
+
+  3.48%	runtime??indexstring
+  3.13%	runtime??indexstring
+
+What's not?
+
+  0.50%	main??*String??Equal
+  0.52%	hashmap??*hashVector??grow
