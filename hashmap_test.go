@@ -108,6 +108,30 @@ func BenchmarkRemove(b *testing.B) {
 	}
 }
 
+func BenchmarkAt(b *testing.B) {
+	b.StopTimer()
+	m := New()
+	for i := 0; i < b.N; i++ {
+		m.Insert(Integer(i), true);
+	}
+	b.StartTimer()
+	for i := 0; i < b.N; i++ {
+		m.At(Integer(i));
+	}
+}
+
+func BenchmarkSet(b *testing.B) {
+	b.StopTimer()
+	m := New()
+	for i := 0; i < b.N; i++ {
+		m.Insert(Integer(i), true);
+	}
+	b.StartTimer()
+	for i := 0; i < b.N; i++ {
+		m.Set(Integer(i), "Yah");
+	}
+}
+
 func BenchmarkSuccessfulLookup(b *testing.B) {
 	b.StopTimer()
 	m := New()

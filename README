@@ -20,3 +20,13 @@ user	0m8.800s
 sys	0m0.530s
 phf@eggbert ~/go/phf $ wc -w /usr/share/dict/cracklib-words 
 1671731 /usr/share/dict/cracklib-words
+
+Initial benchmarks:
+
+hashmap.BenchmarkLen	1000000000	         3 ns/op
+hashmap.BenchmarkInsert	  500000	      4911 ns/op
+hashmap.BenchmarkRemove	  500000	      4272 ns/op
+hashmap.BenchmarkAt	 1000000	      1510 ns/op
+hashmap.BenchmarkSet	 1000000	      1700 ns/op
+hashmap.BenchmarkSuccessfulLookup	 1000000	      1442 ns/op
+hashmap.BenchmarkFailedLookup	 5000000	       399 ns/op
