@@ -5,8 +5,7 @@
 include ../../../Make.$(GOARCH)
 
 TARG=container/hashmap
-GOFILES=\
-	hashmap.go
+GOFILES=hashmap.go hashvec.go
 CLEANFILES+=example_map example_hashmap
 
 include ../../../Make.pkg

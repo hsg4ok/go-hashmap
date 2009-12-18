@@ -1,27 +1,27 @@
 An experiment in Go performance
 ===============================
 
-Initial results on cracklib-words:
+Initial results:
+----------------
 
-phf@eggbert ~/go/phf $ time python maptest.py 
+phf@eggbert ~/go/src/pkg/container/hashmap $ time ./example_dict.py
+1671705 words
 
-real	0m2.000s
-user	0m1.900s
-sys	0m0.100s
-phf@eggbert ~/go/phf $ time ./maptest         
+real	0m2.578s
+user	0m1.820s
+sys	0m0.140s
+phf@eggbert ~/go/src/pkg/container/hashmap $ time ./example_map
+1671705 words
 
-real	0m1.853s
-user	0m1.720s
-sys	0m0.110s
-phf@eggbert ~/go/phf $ time ./hashmaptest
+real	0m1.822s
+user	0m1.680s
+sys	0m0.150s
+phf@eggbert ~/go/src/pkg/container/hashmap $ time ./example_hashmap
+1671705 words
 
-real	0m9.333s
-user	0m8.800s
-sys	0m0.530s
-phf@eggbert ~/go/phf $ wc -w /usr/share/dict/cracklib-words 
-1671731 /usr/share/dict/cracklib-words
-
-Initial benchmarks:
+real	0m10.216s
+user	0m9.750s
+sys	0m0.460s
 
 hashmap.BenchmarkLen	1000000000	         3 ns/op
 hashmap.BenchmarkInsert	  500000	      4911 ns/op
@@ -30,3 +30,21 @@ hashmap.BenchmarkAt	 1000000	      1510 ns/op
 hashmap.BenchmarkSet	 1000000	      1700 ns/op
 hashmap.BenchmarkSuccessfulLookup	 1000000	      1442 ns/op
 hashmap.BenchmarkFailedLookup	 5000000	       399 ns/op
+
+After replacing container/vector with hashmap/hashvec:
+------------------------------------------------------
+
+phf@eggbert ~/go/src/pkg/container/hashmap $ time ./example_hashmap
+1671705 words
+
+real	0m5.813s
+user	0m5.400s
+sys	0m0.210s
+
+hashmap.BenchmarkLen	1000000000	         3 ns/op
+hashmap.BenchmarkInsert	 1000000	      1723 ns/op
+hashmap.BenchmarkRemove	 1000000	      1007 ns/op
+hashmap.BenchmarkAt	 5000000	       501 ns/op
+hashmap.BenchmarkSet	 5000000	       687 ns/op
+hashmap.BenchmarkSuccessfulLookup	 5000000	       490 ns/op
+hashmap.BenchmarkFailedLookup	10000000	       172 ns/op
