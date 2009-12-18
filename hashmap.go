@@ -138,7 +138,7 @@ func (self *HashMap) Set(key Hashable, value interface{}) {
 }
 
 func (self *HashMap) Has(key Hashable) bool {
-//	fmt.Printf("Set %s->%s\n", key, value)
+//	fmt.Printf("Has %s\n", key)
 	_, position := self.find(key)
 	return position != -1;
 }

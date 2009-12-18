@@ -18,6 +18,45 @@ func TestZeroLen(t *testing.T) {
 	}
 }
 
+func TestZeroLookup(t *testing.T) {
+	const Len = 10000
+	a := New()
+	for i := 0; i < Len; i++ {
+		if a.Has(Integer(i)) {
+			t.Errorf("found %d in empty hashmap", i)
+		}
+	}
+}
+
+func TestInsert(t *testing.T) {
+	const Len = 10000
+	a := New()
+	for i := 0; i < Len; i++ {
+		a.Insert(Integer(i), i)
+	}
+	for i := 0; i < Len; i++ {
+		if !a.Has(Integer(i)) {
+			t.Errorf("inserted %d not found", i)
+		}
+	}
+}
+
+func TestRemove(t *testing.T) {
+	const Len = 10000
+	a := New()
+	for i := 0; i < Len; i++ {
+		a.Insert(Integer(i), i)
+	}
+	for i := 0; i < Len; i++ {
+		a.Remove(Integer(i))
+	}
+	for i := 0; i < Len; i++ {
+		if a.Has(Integer(i)) {
+			t.Errorf("removed %d was found", i)
+		}
+	}
+}
+
 func TestIter(t *testing.T) {
 	const Len = 100
 	x := New()
