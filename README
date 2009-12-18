@@ -31,8 +31,8 @@ hashmap.BenchmarkSet	 1000000	      1700 ns/op
 hashmap.BenchmarkSuccessfulLookup	 1000000	      1442 ns/op
 hashmap.BenchmarkFailedLookup	 5000000	       399 ns/op
 
-After replacing container/vector with hashmap/hashvec:
-------------------------------------------------------
+After replacing container/vector with hashvec:
+----------------------------------------------
 
 phf@eggbert ~/go/src/pkg/container/hashmap $ time ./example_hashmap
 1671705 words
