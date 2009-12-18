@@ -48,3 +48,9 @@ hashmap.BenchmarkAt	 5000000	       501 ns/op
 hashmap.BenchmarkSet	 5000000	       687 ns/op
 hashmap.BenchmarkSuccessfulLookup	 5000000	       490 ns/op
 hashmap.BenchmarkFailedLookup	10000000	       172 ns/op
+
+Credits
+-------
+
+Thanks to Roger Peppe for hashmap_roger.go which uses the builtin
+map type for half of the data structure.
