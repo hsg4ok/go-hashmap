@@ -9,6 +9,8 @@
 
 package hashmap
 
+const initialLength = 2
+
 type hashVector struct {
 	data []HashPair
 	count int
@@ -36,7 +38,9 @@ func (self *hashVector) grow() {
 func (self *hashVector) push(pair HashPair) {
 	d := self.data
 	if d == nil {
-		self.data = make([]HashPair, 2)
+		// lazy: avoid allocation for empty buckets
+		// small: assuming good hash function
+		self.data = make([]HashPair, initialLength)
 		d = self.data
 	}
 
@@ -51,6 +55,7 @@ func (self *hashVector) push(pair HashPair) {
 }
 
 func (self *hashVector) pop(i int) {
-	copy(self.data[i:], self.data[i+1:])
+	d := self.data
+	copy(d[i:], d[i+1:])
 	self.count--
 }
