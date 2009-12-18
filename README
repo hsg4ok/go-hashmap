@@ -1,0 +1,22 @@
+An experiment in Go performance
+===============================
+
+Initial results on cracklib-words:
+
+phf@eggbert ~/go/phf $ time python maptest.py 
+
+real	0m2.000s
+user	0m1.900s
+sys	0m0.100s
+phf@eggbert ~/go/phf $ time ./maptest         
+
+real	0m1.853s
+user	0m1.720s
+sys	0m0.110s
+phf@eggbert ~/go/phf $ time ./hashmaptest
+
+real	0m9.333s
+user	0m8.800s
+sys	0m0.530s
+phf@eggbert ~/go/phf $ wc -w /usr/share/dict/cracklib-words 
+1671731 /usr/share/dict/cracklib-words
