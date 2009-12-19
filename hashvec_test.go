@@ -16,13 +16,19 @@ func BenchmarkHashVectorPush(b *testing.B) {
 }
 
 func BenchmarkHashVectorPop(b *testing.B) {
+	// TODO: tried to focus on short vectors here, correct?
 	b.StopTimer()
-	var m hashVector
-	for i := 0; i < b.N; i++ {
-		m.push(HashPair{Integer(i), true})
+	var d hashVector
+	for i := 0; i < 8; i++ {
+		d.push(HashPair{Integer(i), true})
 	}
 	b.StartTimer()
 	for i := 0; i < b.N; i++ {
-		m.pop(0)
+		b.StopTimer()
+		m := d
+		b.StartTimer()
+		for m.count > 0 {
+			m.pop(0)
+		}
 	}
 }

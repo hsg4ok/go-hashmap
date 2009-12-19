@@ -56,6 +56,6 @@ func (self *hashVector) push(pair HashPair) {
 
 func (self *hashVector) pop(i int) {
 	d := self.data
-	copy(d[i:], d[i+1:])
+	copy(d[i:], d[i+1:]) // explicit loop does worth despite slice allocation
 	self.count--
 }
