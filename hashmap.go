@@ -7,6 +7,11 @@ package hashmap
 
 //import "fmt"
 
+// These seem right, Java's lower 0.75 bound resizes too
+// much, a higher 1.15 or 1.25 bound makes chains grow
+const loadGrow = 1.0
+const loadShrink = 0.25
+
 // Hashable is an interface that keys have to implement.
 type Hashable interface {
 	Hash() uint
@@ -82,7 +87,7 @@ func New() *HashMap {
 
 func (self *HashMap) Insert(key Hashable, value interface{}) {
 //	fmt.Printf("Insert %s->%s\n", key, value)
-	if self.loadFactor() >= 1.0 {
+	if self.loadFactor() >= loadGrow {
 		self.grow()
 	}
 
@@ -105,7 +110,7 @@ func (self *HashMap) Remove(key Hashable) {
 	self.data[bucket].pop(position)
 	self.count--
 
-	if self.loadFactor() < 0.25 {
+	if self.loadFactor() <= loadShrink {
 		self.shrink()
 	}
 }
