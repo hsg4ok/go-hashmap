@@ -9,6 +9,7 @@ type String string
 
 func (self String) Hash() uint {
 	var h uint = 5381
+	// explicit for loop is slower than range
 	for _, r := range self {
 		h = (h << 5) + h + uint(r)
 	}
