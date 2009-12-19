@@ -28,8 +28,8 @@ type HashMap struct {
 // HashPair is a key and a value.
 // Iter() yields HashPairs.
 type HashPair struct {
-	key Hashable
-	value interface{}
+	Key Hashable
+	Value interface{}
 }
 
 func (self *HashMap) loadFactor() float {
@@ -44,7 +44,7 @@ func (self *HashMap) rehashInto(data []hashVector) {
 		if self.data[b].count > 0 && self.data[b].data != nil {
 			for i := 0; i < self.data[b].count; i++ {
 				e := self.data[b].data[i]
-				h := e.key.Hash() % l
+				h := e.Key.Hash() % l
 				data[h].push(e)
 			}
 		}
@@ -123,7 +123,7 @@ func (self *HashMap) At(key Hashable) interface{} {
 		panic("HashMap.At: key not found")
 	}
 	e := self.data[bucket].data[position]
-	return e.value
+	return e.Value
 }
 
 func (self *HashMap) Set(key Hashable, value interface{}) {
@@ -132,7 +132,7 @@ func (self *HashMap) Set(key Hashable, value interface{}) {
 	if position == -1 {
 		panic("HashMap.Set: key not found")
 	}
-	self.data[bucket].data[position].value = value
+	self.data[bucket].data[position].Value = value
 }
 
 func (self *HashMap) Has(key Hashable) bool {
@@ -152,7 +152,7 @@ func (self *HashMap) Do(f func(key Hashable, value interface{})) {
 		if self.data[b].count > 0 {
 			for i := 0; i < self.data[b].count; i++ {
 				e := self.data[b].data[i]
-				f(e.key, e.value)
+				f(e.Key, e.Value)
 			}
 		}
 	}
