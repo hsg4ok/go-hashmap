@@ -39,11 +39,12 @@ func (self *HashMap) loadFactor() float {
 
 func (self *HashMap) rehashInto(data []hashVector) {
 //	fmt.Printf("rehashInto %d\n", len(data))
+	l := uint(len(data))
 	for b := range self.data {
 		if self.data[b].count > 0 && self.data[b].data != nil {
 			for i := 0; i < self.data[b].count; i++ {
 				e := self.data[b].data[i]
-				h := e.key.Hash() % uint(len(data))
+				h := e.key.Hash() % l
 				data[h].push(e)
 			}
 		}
