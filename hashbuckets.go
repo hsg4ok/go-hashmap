@@ -32,7 +32,7 @@ type bucketArray struct {
 // used, we found an exact match; if the bucket is fresh
 // or deleted, we can insert there. Note that we relocate
 // buckets on successful searches (if possible).
-func (self *bucketArray) find(key Hashable) (index int) {
+func (self bucketArray) find(key Hashable) (index int) {
 	d := self.data
 	l := uint(len(d))
 	h := key.Hash() % l
@@ -87,7 +87,7 @@ func (self *bucketArray) find(key Hashable) (index int) {
 	return -1
 }
 
-func (self *bucketArray) push(key Hashable, value interface{}) bool {
+func (self bucketArray) push(key Hashable, value interface{}) bool {
 	p := self.find(key)
 	if self.data[p].state == used {
 		return false
@@ -96,7 +96,7 @@ func (self *bucketArray) push(key Hashable, value interface{}) bool {
 	return true
 }
 
-func (self *bucketArray) pop(key Hashable) bool {
+func (self bucketArray) pop(key Hashable) bool {
 	p := self.find(key)
 	if self.data[p].state != used {
 		return false
