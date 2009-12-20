@@ -36,7 +36,8 @@ func (self bucketArray) find(key Hashable) (index int) {
 	d := self.data
 	l := uint(len(d))
 	h := key.Hash() % l
-	i := h
+	i := h // current probe
+	j := uint(1) // next probe offset
 	r := -1 // relocation index
 	for {
 		b := d[i]
@@ -68,7 +69,16 @@ func (self bucketArray) find(key Hashable) (index int) {
 		}
 
 		// next index, wrapping around
-		i = (i + 1) % l
+		i = (i + j) % l
+		// XXX tried +2 but that's worse, probably because
+		// we trash into other bucket-ranges then
+		// XXX tried j = 2*j but that's at least not better,
+		// not sure why; "exponential probing"?
+		// XXX tried i = (i + uint(j*j)) % l; j++ which is
+		// quadratic probing, and that's better, by about
+		// half a second in fact for example_hashmap; but
+		// I am not sure about the termination properties
+		// yet...
 
 		// back to where we started?
 		if i == h {
