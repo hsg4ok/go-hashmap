@@ -10,6 +10,18 @@ package hashmap
 const loadGrow = 0.5
 const loadShrink = 0.1
 
+// Some primes close to powers of 2 for the table sizes
+// (except for 7 all are greater than the nearest 2**i)
+var primes = []uint{
+	7, 17, 37, 67, 131, 257, 521, 1031, 2053, 4099, 8209, 16411,
+	32771, 65537, 131101, 262147, 524309, 1048583, 2097169,
+	4194319, 8388617, 16777259, 33554467, 67108879, 134217757,
+	268435459, 536870923, 1073741827, 2147483659,
+}
+
+// Size we start out with and never go below
+var minimumSize = primes[0]
+
 // Hashable is an interface that keys have to implement.
 type Hashable interface {
 	Hash() uint
@@ -21,6 +33,7 @@ type Hashable interface {
 type HashMap struct {
 	buckets bucketArray
 	count int // to compute load factor
+	prime int
 }
 
 // HashPair is a key and a value.
@@ -46,18 +59,34 @@ func (self *HashMap) rehashInto(dest bucketArray) {
 
 func (self *HashMap) grow() {
 //	fmt.Printf("grow\n")
+	p := self.prime
+	if p == len(primes)-1 {
+		panic("grow: can't grow bigger!")
+	}
+	p++
+
 	var newBuckets bucketArray
-	newBuckets.data = make([]bucket, len(self.buckets.data)*2)
+	newBuckets.data = make([]bucket, primes[p])
 	self.rehashInto(newBuckets)
 	self.buckets = newBuckets
+
+	self.prime = p
 }
 
 func (self *HashMap) shrink() {
 //	fmt.Printf("shrink\n")
+	p := self.prime
+	if p == 0 {
+		return
+	}
+	p--
+
 	var newBuckets bucketArray
-	newBuckets.data = make([]bucket, len(self.buckets.data)/2)
+	newBuckets.data = make([]bucket, primes[p])
 	self.rehashInto(newBuckets)
 	self.buckets = newBuckets
+
+	self.prime = p
 }
 
 // Init initializes or clears a HashMap.
