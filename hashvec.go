@@ -21,7 +21,7 @@ func (self *hashVector) find(key Hashable) int {
 	if d != nil {
 		l := self.count
 		for i := 0; i < l; i++ {
-			if key.Equal(d[i].key) {
+			if key.Equal(d[i].Key) {
 				return i
 			}
 		}

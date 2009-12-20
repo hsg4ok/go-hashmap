@@ -66,8 +66,8 @@ func TestIter(t *testing.T) {
 	i := 0
 	for v := range x.Iter() {
 		p := v.(HashPair)
-		key := p.key.(Integer)
-		val := p.value.(int)
+		key := p.Key.(Integer)
+		val := p.Value.(int)
 		if key*key != Integer(val) {
 			t.Error("Iter expected", key*key, "got", val)
 		}
