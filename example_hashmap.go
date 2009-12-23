@@ -12,6 +12,7 @@ func (self String) Hash() uint {
 	// explicit for loop is slower than range
 	for _, r := range self {
 		h = (h << 5) + h + uint(r)
+		// h = (h << 5) + h ^ uint(r)
 	}
 	return h
 }
